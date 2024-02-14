@@ -1,24 +1,53 @@
-import { lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { ShareLayout } from './SearchInput/SearchInput';
-const Trending = lazy(() => import('../pages/Trending/Trending'));
-const Movies = lazy(() => import('../pages/Movies/Movies'));
-const MoviesDetails = lazy(() =>
-  import('../pages/MoviesDetails/MoviesDetails')
-);
-const Cast = lazy(() => import('../components/Cast/Cast'));
-const Reviews = lazy(() => import('../components/Reviews/Reviews'));
-const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
+import React, { Suspense, lazy } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  NavLink,
+} from 'react-router-dom';
+import styled from 'styled-components';
+import styles from './App.module.css';
 
-export const App = () => {
-  <Routes>
-    <Route path="/" element={<ShareLayout />} />
-    <Route index element={<Trending />} />
-    <Route path="movies" element={<Movies />} />
-    <Route path="movies/:id" element={<MoviesDetails />} />
+// Lazy-loaded components
+const Home = lazy(() => import('./Home/Home'));
+const Movies = lazy(() => import('./Movies/Movies'));
+const MovieDetails = lazy(() => import('./MoviesDetails/MoviesDetails'));
+const Cast = lazy(() => import('./Cast/Cast'));
+const Reviews = lazy(() => import('./Reviews/Reviews'));
 
-    <Route path="cast" element={<Cast />} />
-    <Route path="reviews" element={<Reviews />} />
-    <Route path="*" element={<NotFound />} />
-  </Routes>;
+// Stilizare pentru NavLink
+const StyledNavLink = styled(NavLink)`
+  margin-right: 10px;
+  text-decoration: none;
+  color: black;
+  &.active {
+    font-weight: bold;
+    color: red;
+  }
+`;
+
+const App = () => {
+  return (
+    <Router>
+      <nav className={styles.navLinks}>
+        <StyledNavLink to="/" end>
+          Acasă
+        </StyledNavLink>
+        <StyledNavLink to="/movies">Filme</StyledNavLink>
+      </nav>
+      <Suspense fallback={<div>Se încarcă...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </Suspense>
+    </Router>
+  );
 };
+
+export default App;

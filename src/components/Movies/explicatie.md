@@ -1,5 +1,5 @@
-import { SearchInput } from 'components/SearchInput/SearchInput';
-import { ShowMoviesList } from '../ShowMoviesList/ShowMoviesList';
+<!-- import { SearchInput } from 'components/SearchInput/SearchInput';
+import { ShowMoviesList } from '../ShowMovieList/ShowMovieList';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { searchMovies } from 'services/API';
@@ -37,4 +37,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default Movies; -->
