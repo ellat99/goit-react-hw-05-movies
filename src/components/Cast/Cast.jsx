@@ -50,7 +50,7 @@ function Cast() {
 }
 
 Cast.propTypes = {
-  //   movieId: PropTypes.string.isRequired,
+ 
   cast: PropTypes.array,
 };
 

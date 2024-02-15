@@ -6,8 +6,10 @@ import styles from './MovieDetails.module.css';
 import { Outlet } from 'react-router-dom';
 const apiKey = '47654636e0a81733a8194af924ebd404';
 function MovieDetails() {
+  //folosim useParams pt a extrage id ul din parametrii rutei url
   const { movieId } = useParams();
   console.log(movieId);
+  //defineste starea movieDetails cu ajutorul useState ,initializam cu null pt a fi fara informatii
   const [movieDetails, setMovieDetails] = useState(null);
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -25,6 +27,10 @@ function MovieDetails() {
 
   if (!movieDetails) return <div>Loading...</div>;
   return (
+    //incadreaza toate detaliile filmului
+    // afiseaza titlul fimului si anul lansariipt h1
+    //rotunjim scorul cel mai aporape de procentaj
+    //span>{' '} pt a avea spatiul gol
     <div className={styles.movieDetails}>
       <div className={styles.movieDetailsTitle}></div>
 
